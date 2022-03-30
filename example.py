@@ -21,8 +21,6 @@ text = "0"
 desiredTime = 2
 warnings = 0
 
-# account_sid = "ACfd2ff4430b3e7b92526cf447d3aff48c"
-# auth_token  = "c001aca9be460b98f4af834ab9c24c31"
 client = Client(account_sid, auth_token)
 
 
@@ -32,6 +30,8 @@ def sendMessage():
     from_="+19285758326",
     body="Focus, you lazy MF!")
     print(message)
+
+sendMessage()
 
 while True:
     # We get a new frame from the webcam
@@ -47,16 +47,11 @@ while True:
         previousTime = datetime.now()
         wasRight = False
         warnings += 1
-        if (warnings > 3):
+        if (warnings >= 3):
             sendMessage()
             warnings = 0
 
-    cv2.putText(frame, text, (90, 60), cv2.FONT_HERSHEY_DUPLEX, 1.6, (147, 58, 31), 2)
-
-    left_pupil = gaze.pupil_left_coords()
-    right_pupil = gaze.pupil_right_coords()
-    cv2.putText(frame, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
-    cv2.putText(frame, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+    cv2.putText(frame, "Warnings:  " + str(warnings), (90, 60), cv2.FONT_HERSHEY_DUPLEX, 1.9, (255, 255, 255), 2)
 
     cv2.imshow("Demo", frame)
 
